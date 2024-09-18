@@ -1,0 +1,5 @@
+ErrorDocument 400 http://www.eb2a.com/404/
+ErrorDocument 401 http://www.eb2a.com/404/
+ErrorDocument 403 http://www.eb2a.com/404/
+ErrorDocument 404 http://www.eb2a.com/404/
+ErrorDocument 500 http://www.eb2a.com/404/
