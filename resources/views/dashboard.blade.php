@@ -68,16 +68,16 @@ $totaltest = $totaltestaccept + $totaltestrejet;
     <table class="w-full table-fixed">
         <thead>
             <tr class="bg-gray-100">
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">Id Dev</th>
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">firstname-dev</th>
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">name-dev</th>
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">Name Entreprise</th>
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">Email</th>
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">Phone</th>
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">Message</th>
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">Response</th>
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">Status</th>
-                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">Action</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">id_Dev</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">prénom_dev</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">nom_dev</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">nom_Entreprise</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">Email_Entreprise</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">téléphone</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">message</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">résponse</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">status</th>
+                <th class="w-1/4 px-6 py-4 font-bold text-left text-gray-600 uppercase">action</th>
             </tr>
         </thead>
         <tbody class="bg-white">

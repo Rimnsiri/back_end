@@ -9,6 +9,7 @@ use App\Mail\DataAddedMail;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Dev; 
 class ContactdevController extends Controller
 {
     public function store(Request $request)
@@ -34,13 +35,24 @@ class ContactdevController extends Controller
             
             ContactDev::create($validatedData);
         }
-        
+        $developer = Dev::find($validatedData['dev_id']);
+
+        if ($developer) {
+            $devName = $developer->name;
+            $devFirstName = $developer->firstname;
+        } else {
+            $devName = 'Inconnu';
+            $devFirstName = '';
+        }
+    
         $emailData = [
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'phone' => $validatedData['phone'],
             'message' => $validatedData['message'],
             'dev_id' => $validatedData['dev_id'],
+            'dev_name' => $devName,
+            'dev_firstname' => $devFirstName,
         ];
     
         

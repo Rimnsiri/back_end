@@ -7,7 +7,11 @@
     <div class="mb-3 d-flex justify-content-between align-items-center">
         <!-- Colonne pour le bouton, aligné à gauche -->
         <div class="p-2 ">
-            <a href="{{ route('devs.create') }}" ><button class="button">Ajouter Développeurs</button>
+            <a href="{{ route('devs.create') }}" >
+                <button type="submit"
+                class="px-5 py-2.5 mt-2 rounded-lg text-white text-sm tracking-wider font-medium border border-current outline-none bg-orange-700 hover:bg-orange-800 active:bg-orange-700">Ajouter Développeurs</button>
+                                    </div>
+                                    
             </a>
         </div>
         <!-- Colonne pour le titre, centré par rapport à l'espace disponible -->
@@ -36,7 +40,8 @@
                 <div class="input-group">
                     <input type="text" name="search" class="form-control rounded-2" placeholder="Rechercher par prénom" >
                     <span class="input-group-btn">
-                        <button class="button" type="submit"><i class="fas fa-search"></i></button>
+                        
+                        <button class="button bg-orange-600" type="submit"><i class="fas fa-search"></i></button>
                     </span>
                 </div>
             </form>
