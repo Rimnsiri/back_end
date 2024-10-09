@@ -100,6 +100,10 @@
                                         <div class="mb-3 ">
                                             <label for="education[0][enddate]" class="form-label">End Date</label>
                                             <input type="date" class="form-control" name="education[0][enddate]">
+                                            <!-- <div class="form-check">
+                                                <input class="form-check-input ongoing-education" type="checkbox" name="education[0][ongoing]" id="education-ongoing-0">
+                                                <label class="form-check-label" for="education-ongoing-0">En cours</label>
+                                            </div>-->
                                         </div>
                                         <div class="mb-3">
                                             <label for="education[0][description]" class="form-label">Description</label>
@@ -140,13 +144,30 @@
                                         <div class="mb-3">
                                             <label for="experience[0][enddate]" class="mt-2 form-label">End Date</label>
                                             <input type="date" class="form-control" name="experience[0][enddate]">
+                                           
+                                             <div class="form-check">
+                                                <input class="form-check-input ongoing-experience" type="checkbox" name="experience[0][is_current]" id="experience-ongoing-0">
+                                                <label class="form-check-label" for="experience-ongoing-0">En cours</label>
+                                            </div>
                                         </div>
                                 
                                         <div class="mb-3">
                                             <label for="experience[0][description]" class="mt-2 form-label">Description</label>
                                             <textarea class="form-control" name="experience[0][description]" rows="3" placeholder="Description of the experience" ></textarea>
                                         </div>
-                                
+                                        <div class="mb-3">
+                                            <label for="experience[0][skills]" class="mt-2 form-label">Technologies utilisées</label>
+                                            <div>
+                                                @foreach($skills as $skill)
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="experience[0][skills][]" value="{{ $skill->id }}" id="skill-{{ $skill->id }}">
+                                                        <label class="form-check-label" for="skill-{{ $skill->id }}">
+                                                            {{ $skill->name }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                         <button type="button" class="remove-experience btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                 </div>
@@ -206,11 +227,12 @@
                                         <label for="french_level">Niveau de francais</label>
                                         <select class="form-control" id="french_level" name="french_level">
                                             <option value="">Sélectionnez un niveau</option>
-                                            <option value="N1">N1 - Débutant</option>
-                                            <option value="N2">N2 - Élémentaire</option>
-                                            <option value="N3">N3 - Intermédiaire</option>
-                                            <option value="N4">N4 - Intermédiaire supérieur</option>
-                                            <option value="N5">N5 - Avancé</option>
+                                            <option value="A1">A1 </option>
+                                            <option value="A2">A2 </option>
+                                            <option value="B1">B1 </option>
+                                            <option value="B2">B2 </option>
+                                            <option value="C1">C1 </option>
+                                            <option value="C2">C2 </option>
                                         </select>
                                     </div>
 
@@ -219,11 +241,12 @@
                                         <label for="english_level">Niveau d'anglais</label>
                                         <select class="form-control" id="english_level" name="english_level">
                                             <option value="">Sélectionnez un niveau</option>
-                                            <option value="N1">N1 - Débutant</option>
-                                            <option value="N2">N2 - Élémentaire</option>
-                                            <option value="N3">N3 - Intermédiaire</option>
-                                            <option value="N4">N4 - Intermédiaire supérieur</option>
-                                            <option value="N5">N5 - Avancé</option>
+                                            <option value="A1">A1 </option>
+                                            <option value="A2">A2 </option>
+                                            <option value="B1">B1 </option>
+                                            <option value="B2">B2 </option>
+                                            <option value="C1">C1 </option>
+                                            <option value="C2">C2 </option>
                                         </select>
                                     </div>
                                 </div>
@@ -311,4 +334,6 @@
 
 @section('scripts')
     <script src="{{ asset('js/app.js') }}"></script>
+   
+
 @endsection

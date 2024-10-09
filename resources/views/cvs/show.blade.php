@@ -31,6 +31,18 @@
                                
                                <br>
                                <p>{{$experience->description}}</p>
+                               <div>
+                                <strong>Technologies utilisées :</strong>
+                                @if($experience->skills->isNotEmpty())
+                                    <ul>
+                                        @foreach ($experience->skills as $skill)
+                                            <li>{{ $skill->name }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p>Aucune technologie spécifiée pour cette expérience.</p>
+                                @endif
+                            </div>
                             </div>
                         @endforeach
                      </div>

@@ -196,7 +196,7 @@ class DevController extends Controller
 
     public function getPublicCV($devId)
     {
-        $cv = Cv::with(['dev', 'experiences', 'educations', 'skills' => function ($query) {
+        $cv = Cv::with(['dev', 'experiences','experiences.skills','educations', 'skills' => function ($query) {
 
             $query->withPivot('nbrmonth', 'isprincipal');
         }])

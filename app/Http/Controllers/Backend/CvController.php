@@ -61,7 +61,13 @@ class CvController extends Controller
         $cv = Cv::create($validatedData);
 
         if ($request->has('education')) {
+           
             foreach ($request->education as $education) {
+
+                if (isset($education['encours']) && $education['encours'] == 'on') {
+                    $education['enddate'] = null;
+                }
+                
                 $validatedEducation = Validator::make($education, [
                     'diplome' => 'nullable|string|max:255',
                     'école' => 'nullable|string|max:255',
@@ -76,7 +82,10 @@ class CvController extends Controller
         if ($request->has('experience')) {
             foreach ($request->experience as $experienceData) {
                 $experienceData['cv_id'] = $cv->id;
-
+                
+                if (isset($experienceData['encours']) && $experienceData['encours'] == 'on') {
+                    $experienceData['enddate'] = null;
+                }
                 $validatedExperience = Validator::make($experienceData, [
                     'cv_id' => 'required|exists:cvs,id',
                     'title' => 'nullable|string|max:255',
@@ -88,7 +97,9 @@ class CvController extends Controller
 
                 // Créer l'expérience
                 $experience = Experience::create($validatedExperience);
-
+                if (isset($experienceData['skills']) && is_array($experienceData['skills'])) {
+                    $experience->skills()->sync($experienceData['skills']); 
+                }
                 // Vous pouvez ajouter le traitement des compétences ici si nécessaire
             }
         }
@@ -125,6 +136,7 @@ class CvController extends Controller
     {
         $devs = Dev::all(); // Récupère tous les développeurs
         $skills = Skill::all();
+        $cv->load('experiences.skills'); 
 
         return view('cvs.edit', compact('cv', 'devs', 'skills'));
     }
@@ -143,6 +155,8 @@ class CvController extends Controller
             'experiences.*.description' => 'nullable|string',
             'experiences.*.startdate' => 'nullable|date',
             'experiences.*.enddate' => 'nullable|date',
+            'technologies.*.id' => 'sometimes|exists:technologies,id',
+            'technologies.*.is_checked' => 'required_with:technologies.*.id|boolean',
             // Ajout des règles de validation pour les éducations
             'educations.*.id' => 'sometimes|exists:education,id',
             'educations.*.diplome' => 'required|string',
@@ -213,6 +227,18 @@ class CvController extends Controller
                                 'enddate' => $experienceData['enddate'],
                                 'description' => $experienceData['description'],
                             ]);
+                            if (isset($experienceData['technologies']) && is_array($experienceData['technologies'])) {
+                                // Filtrer et récupérer les IDs des technologies sélectionnées
+                                $technologiesIds = array_filter($experienceData['technologies']);
+        
+                                // Ne synchroniser que si des technologies sont présentes
+                                if (!empty($technologiesIds)) {
+                                    $experience->skills()->sync($technologiesIds);
+                                } else {
+                                    // Si aucune technologie n'est cochée, on garde les anciennes sans les effacer
+                                    $experience->skills()->sync([]);
+                                }
+                            }
                         }
                     } else {
                         // Ajout d'une nouvelle expérience
@@ -225,6 +251,13 @@ class CvController extends Controller
                             'description' => $experienceData['description'],
                         ]);
                         $cv->experiences()->save($newExperience);
+                        if (isset($experienceData['technologies']) && is_array($experienceData['technologies'])) {
+                            $technologiesIds = array_filter($experienceData['technologies']);
+        
+                            if (!empty($technologiesIds)) {
+                                $newExperience->skills()->sync($technologiesIds);
+                            }
+                        }
                     }
                 }
             }

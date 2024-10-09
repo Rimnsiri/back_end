@@ -12,9 +12,9 @@ class Skill extends Model
         'name',
         'image',
     ];
-    public function exps()
+    public function experiences()
     {
-         return $this->belongsToMany(Experience::class, 'experience_skill', 'skill_id', 'exp_id');
+        return $this->belongsToMany(Experience::class, 'experience_skill');
     }
     public function cv()
     {

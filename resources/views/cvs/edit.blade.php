@@ -118,15 +118,32 @@
                                             name="experiences[{{ $experience->id }}][enddate]"
                                             value="{{ \Carbon\Carbon::parse($experience->enddate)->format('Y-m-d') }}">
                                     </div>
+                                  
                                     <div class="mb-3">
                                         <label for="experience_description_{{ $experience->id }}"
                                             class="form-label">Description</label>
                                         <textarea class="form-control" id="experience_description_{{ $experience->id }}"
                                             name="experiences[{{ $experience->id }}][description]" rows="3">{{ $experience->description }}</textarea>
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="technologies_{{ $experience->id }}" class="form-label">Technologies Utilisées</label>
+                                        <div>
+                                            @foreach ($skills as $skill) {{-- Utilisez $skills ici --}}
+                                                <div class="form-check">
+                                                    <input class="form-check-input" 
+                                                           type="checkbox" 
+                                                           id="technology_{{ $experience->id }}_{{ $skill->id }}" 
+                                                           name="experiences[{{ $experience->id }}][technologies][]" 
+                                                           value="{{ $skill->id }}" 
+                                                           {{ in_array($skill->id, $experience->skills->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="technology_{{ $experience->id }}_{{ $skill->id }}">
+                                                        {{ $skill->name }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                     
-                                  
-
                                     {{-- Bouton de suppression pour l'expérience --}}
                                     <button type="button" class="btn mt-7 btn-danger remove-experience"
                                         data-experience-id="{{ $experience->id }}"><i class="fa-solid fa-trash"></i></button>
@@ -165,7 +182,6 @@
                                         <textarea class="form-control" name="new_experience[description]" rows="3"
                                             placeholder="Description of the experience"></textarea>
                                     </div>
-
                                     <button type="button" class="btn mt-7 btn-danger cancel-experience"><i class="fa-solid fa-xmark"></i></button>
                                 </div>
                             </div>
@@ -350,37 +366,29 @@
 
                                 {{-- French Level --}}
                                 <div class="mb-3">
-                                    <label for="french_level" class="form-label">French Level</label>
+                                    <label for="french_level" class="form-label">Niveau de français</label>
                                     <select class="form-control" id="french_level" name="french_level">
-                                        <option value="">Select a level</option>
-                                        <option value="N1" {{ $cv->french_level == 'N1' ? 'selected' : '' }}>N1 -
-                                            Beginner</option>
-                                        <option value="N2" {{ $cv->french_level == 'N2' ? 'selected' : '' }}>N2 -
-                                            Elementary</option>
-                                        <option value="N3" {{ $cv->french_level == 'N3' ? 'selected' : '' }}>N3 -
-                                            Intermediate</option>
-                                        <option value="N4" {{ $cv->french_level == 'N4' ? 'selected' : '' }}>N4 -
-                                            Upper Intermediate</option>
-                                        <option value="N5" {{ $cv->french_level == 'N5' ? 'selected' : '' }}>N5 -
-                                            Advanced</option>
+                                        <option value="">Sélectionnez un niveau</option>
+                                        <option value="A1" {{ $cv->french_level == 'A1' ? 'selected' : '' }}>A1 </option>
+                                        <option value="A2" {{ $cv->french_level == 'A2' ? 'selected' : '' }}>A2 </option>
+                                        <option value="B1" {{ $cv->french_level == 'B1' ? 'selected' : '' }}>B1 </option>
+                                        <option value="B2" {{ $cv->french_level == 'B2' ? 'selected' : '' }}>B2</option>
+                                        <option value="C1" {{ $cv->french_level == 'C1' ? 'selected' : '' }}>C1</option>
+                                        <option value="C2" {{ $cv->french_level == 'C2' ? 'selected' : '' }}>C1</option>
                                     </select>
                                 </div>
 
                                 {{-- English Level --}}
                                 <div class="mb-3">
-                                    <label for="english_level" class="form-label">English Level</label>
+                                    <label for="english_level" class="form-label">Niveau d'anglais</label>
                                     <select class="form-control" id="english_level" name="english_level">
-                                        <option value="">Select a level</option>
-                                        <option value="N1" {{ $cv->english_level == 'N1' ? 'selected' : '' }}>N1 -
-                                            Beginner</option>
-                                        <option value="N2" {{ $cv->english_level == 'N2' ? 'selected' : '' }}>N2 -
-                                            Elementary</option>
-                                        <option value="N3" {{ $cv->english_level == 'N3' ? 'selected' : '' }}>N3 -
-                                            Intermediate</option>
-                                        <option value="N4" {{ $cv->english_level == 'N4' ? 'selected' : '' }}>N4 -
-                                            Upper Intermediate</option>
-                                        <option value="N5" {{ $cv->english_level == 'N5' ? 'selected' : '' }}>N5 -
-                                            Advanced</option>
+                                        <option value="">Sélectionnez un niveau</option>
+                                        <option value="A1" {{ $cv->english_level == 'A1' ? 'selected' : '' }}>A1 </option>
+                                        <option value="A2" {{ $cv->english_level == 'A2' ? 'selected' : '' }}>A2 </option>
+                                        <option value="B1" {{ $cv->english_level == 'B1' ? 'selected' : '' }}>B1 </option>
+                                        <option value="B2" {{ $cv->english_level == 'B2' ? 'selected' : '' }}>B2</option>
+                                        <option value="C1" {{ $cv->english_level == 'C1' ? 'selected' : '' }}>C1</option>
+                                        <option value="C2" {{ $cv->english_level == 'C2' ? 'selected' : '' }}>C1</option>
                                     </select>
                                 </div>
                             </div>
@@ -608,6 +616,19 @@
         });
     </script>
 
+<script>
+    function toggleEndDate(experienceId) {
+        var endDateInput = document.getElementById('enddate_' + experienceId);
+        var enCoursCheckbox = document.getElementById('en_cours_' + experienceId);
+        
+        if (enCoursCheckbox.checked) {
+            endDateInput.disabled = true;
+            endDateInput.value = ''; // Effacer la valeur de la date de fin si "En cours" est sélectionné
+        } else {
+            endDateInput.disabled = false;
+        }
+    }
+</script>
 
 
 

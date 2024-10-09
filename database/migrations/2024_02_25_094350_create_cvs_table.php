@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('dev_id');
             $table->foreign('dev_id')->references('id')->on('devs')->onDelete('cascade');
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->integer('tjm');
             $table->string('niveau');
             $table->string('french_level')->nullable();

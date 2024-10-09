@@ -56,7 +56,7 @@ class ContactdevController extends Controller
         ];
     
         
-        Mail::to('nsiririm111@gmail.com')->send(new DataAddedMail($emailData));
+        Mail::to('ralph@silog.io')->send(new DataAddedMail($emailData));
         return response()->json(['message' => 'Message sent successfully'],201);
     }
     public function reject(Request $request, $id)

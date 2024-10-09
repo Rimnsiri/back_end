@@ -46,15 +46,25 @@
                                             @if($experience->startdate && $experience->enddate)
                                             ({{ \Carbon\Carbon::parse($experience->startdate)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($experience->enddate)->format('d/m/Y') }})
                                         @elseif($experience->startdate)
-                                            ({{ \Carbon\Carbon::parse($experience->startdate)->format('d/m/Y') }} -)
+                                            ({{ \Carbon\Carbon::parse($experience->startdate)->format('d/m/Y') }} - Présent)
                                         @elseif($experience->enddate)
-                                            (- {{ \Carbon\Carbon::parse($experience->enddate)->format('d/m/Y') }})
+                                            (- {{ \Carbon\Carbon::parse($experience->enddate)->format('d/m/Y')  }})
                                         @else
                                             {{-- Vous pouvez décider de ne rien afficher ou d'afficher un texte spécifique si aucune date n'est disponible --}}
                                         @endif
                                         <br>
                                         
                                           <p>{{$experience->description}}</p>
+                                          @if($experience->skills->isNotEmpty())
+                                          <strong>Technologies :</strong>
+                                          <ul style="list-style-type: none; padding-left: 0;">
+                                              @foreach ($experience->skills as $skill)
+                                                  <li>{{ $skill->name }}</li>
+                                              @endforeach
+                                          </ul>
+                                      @else
+                                          <em>Aucune technologie spécifiée.</em>
+                                      @endif
                                         </div>
                                     @endforeach
                                 </td>
