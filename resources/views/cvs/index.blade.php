@@ -5,83 +5,41 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>List of CVs</h1>
-                <a href="{{ route('cvs.create') }}" class="btn btn-primary">Ajouter un cv</a>
-                <table class="table mt-4">
-                    <thead>
+                <a href="{{ route('cvs.create') }}" class="!mt-8 px-8 py-2.5 bg-blue-500 text-sm text-white hover:bg-blue-600 rounded-sm">Ajouter un cv</a>
+                <table class="min-w-full mt-5 divide-y divide-gray-200">
+                    <thead class="bg-gray-300 whitespace-nowrap">
                         <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Developer</th>
-                            <th>Skills</th>
-                            <th>Experiences</th>
-                            <th>Éducation</th>
-                            <th>French Level</th>
-                            <th>English Level</th>
-                            <th>Tjm</th>
-                            <th>Niveau</th>
-                            <th>Actions</th>
+                            <th class="px-4 py-4 text-xs font-semibold tracking-wider text-left text-gray-500 uppercase">Nom</th>
+                            <th class="px-4 py-4 text-xs font-semibold tracking-wider text-left text-gray-500 uppercase">Address</th>
+                            <th class="px-4 py-4 text-xs font-semibold tracking-wider text-left text-gray-500 uppercase">Tjm</th>
+                            <th class="px-4 py-4 text-xs font-semibold tracking-wider text-left text-gray-500 uppercase">Niveau</th>
+                            <th class="px-4 py-4 text-xs font-semibold tracking-wider text-left text-gray-500 uppercase">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody  class="bg-white divide-y divide-gray-200 whitespace-nowrap">
                         @foreach ($cvs as $cv)
                             <tr>
-                                <td>{{ $cv->id }}</td>
-                                <td>{{ $cv->title }}</td>
-                                <td>{{ $cv->description }}</td>
-                                <td>{{ $cv->dev->name }} {{ $cv->dev->firstname }}</td> {{-- Assurez-vous que le modèle Dev a une propriété 'name' --}}
-                                <td>
-                                    @foreach ($cv->skills as $skill)
-                                        <span class="badge bg-secondary">{{ $skill->name }} ({{ $skill->pivot->nbrmonth }}
-                                            mois)</span><br>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($cv->experiences as $experience)
-                                        <div>
-                                            <strong>{{ $experience->title }}</strong> <br>
-                                             {{ $experience->entreprisename }}
-                                            <br>
-                                            @if($experience->startdate && $experience->enddate)
-                                            ({{ \Carbon\Carbon::parse($experience->startdate)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($experience->enddate)->format('d/m/Y') }})
-                                        @elseif($experience->startdate)
-                                            ({{ \Carbon\Carbon::parse($experience->startdate)->format('d/m/Y') }} -)
-                                        @elseif($experience->enddate)
-                                            (- {{ \Carbon\Carbon::parse($experience->enddate)->format('d/m/Y') }})
-                                        @else
-                                            {{-- Vous pouvez décider de ne rien afficher ou d'afficher un texte spécifique si aucune date n'est disponible --}}
-                                        @endif
-                                        <br>
-                                        
-                                          <p>{{$experience->description}}</p>
-                                        </div>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($cv->educations as $education)
-                                        <div>
-                                            <strong>{{ $education->diplome }}</strong> à {{ $education->école }} <br>
-                                            ({{ \Carbon\Carbon::parse($education->startdate)->format('d/m/Y') }} -
-                                            {{ $education->enddate ? \Carbon\Carbon::parse($education->enddate)->format('d/m/Y') : 'Présent' }})
-                                            <br>
-                                            {{ $education->description }}
-                                        </div>
-                                    @endforeach
-                                </td>
-                                <td>{{ $cv->french_level }}</td>
-                                <td>{{ $cv->english_level }}</td>
-                                <td>{{ $cv->tjm }}</td>
-                                <td>{{$cv->niveau}}</td>
-                                <td>
-                                    <a href="{{ route('cvs.show', $cv->id) }}" class="btn btn-info">Voir</a>
-                                    <a href="{{ route('cvs.edit', $cv->id) }}" class="btn btn-primary">Modifier</a>
+                                <td class="p-4 text-sm">
+                                    <div class="flex items-center cursor-pointer w-max">
+                                      <img src="{{ asset('storage/' . $cv->photo) }}" class="rounded-full w-9 h-9 shrink-0" />
+                                      <div class="ml-4">
+                                        <p class="text-sm text-black">{{$cv->name}} {{$cv->firstname}}</p>
+                                        <p class="text-xs text-gray-500">{{$cv->email}}</p>
+                                      </div>
+                                    </div>
+                                  </td>
+                                <td class="px-4 py-4 text-sm text-gray-800">{{ $cv->address }}</td> {{-- Assurez-vous que le modèle Dev a une propriété 'name' --}}
+                                <td class="px-4 py-4 text-sm text-gray-800">{{ $cv->tjm }}</td>
+                                <td class="px-4 py-4 text-sm text-gray-800">{{$cv->niveau}}</td>
+                                <td class="px-4 py-4 text-sm text-gray-800">
+                                    <a href="{{ route('cvs.show', $cv->id) }}" class="ml-2 text-green-600 hover:text-green-900"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ route('cvs.edit', $cv->id) }}" class="text-indigo-600 hover:text-indigo-900"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <form action="{{ route('cvs.destroy', $cv->id) }}" method="POST"
                                         style="display:inline-block;" id="delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-danger"
-                                            onclick="confirmDelete()">Supprimer</button>
+                                        <button type="button" class="ml-2 text-red-600 hover:text-red-900"
+                                            onclick="confirmDelete()"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('entreprisename')->nullable();
             $table->date('startdate')->nullable();
             $table->date('enddate')->nullable();
-            $table->string('description')->nullable();
+            $table->boolean('is_current')->default(false);
+            $table->text('description')->nullable();
             $table->foreign('cv_id')->references('id')->on('cvs')->onDelete('cascade');
             $table->timestamps();
         });

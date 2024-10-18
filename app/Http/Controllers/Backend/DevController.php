@@ -65,7 +65,10 @@ class DevController extends Controller
             }, '=', $techCount); // Assurez-vous d'avoir autant de correspondances que de technologies demandées
         }
     
-        $cvs = $query->with(['dev', 'skills'])->get();
+        $cvs = $query->with(['dev', 'skills' => function($query) {
+            // Filtrer les compétences `isontop` dans la table `skills`
+            $query->where('isontop', true);
+        }])->get();
     
         // Extraire les développeurs uniques
         $devs = $cvs->flatMap(function ($cv) {
@@ -74,7 +77,7 @@ class DevController extends Controller
                 $dev->tjm = $cv->tjm;
                 $dev->ispublic = $cv->ispublic;
                 $dev->niveau = $cv->niveau;
-                $dev->skills = $cv->skills;
+                $dev->skills = $cv->skills->where('pivot.isontop', true);
                 return [$dev];
             }
             return [];
@@ -196,9 +199,9 @@ class DevController extends Controller
 
     public function getPublicCV($devId)
     {
-        $cv = Cv::with(['dev', 'experiences', 'educations', 'skills' => function ($query) {
+        $cv = Cv::with(['dev', 'experiences','experiences.skills','educations', 'skills' => function ($query) {
 
-            $query->withPivot('nbrmonth', 'isprincipal');
+            $query->withPivot('nbrmonth', 'isprincipal','isontop');
         }])
             ->where('dev_id', $devId)
             ->where('ispublic', 1)

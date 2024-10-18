@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('skill_id')->constrained()->onDelete('cascade');
             $table->integer('nbrmonth')->default(0);
             $table->boolean('isprincipal');
-            $table->boolean('isontop')->default(false);
             $table->timestamps();
         });
     }

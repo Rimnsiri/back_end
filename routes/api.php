@@ -29,10 +29,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // Assurez-vous que l'URI et le nom du contrôleur correspondent à votre configuration
-Route::get('/devs', [DevController::class, 'apiIndex']);
+Route::get('/devs', [CvController::class, 'apiIndex']);
 Route::get('/cvs/search', [CvController::class, 'search']);
 
-Route::get('/devs/{id}/cvpublic', [DevController::class, 'getPublicCV']);
+Route::get('/devs/{id}/cvpublic', [CvController::class, 'getPublicCV']);
 Route::post('/contactdev', [ContactdevController::class, 'store']);
 Route::post('/register', [ComptedevController::class, 'register']);
 Route::post('/login', [ComptedevController::class, 'login']);

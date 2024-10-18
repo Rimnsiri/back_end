@@ -12,15 +12,21 @@ return new class extends Migration {
     {
         Schema::create('cvs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('dev_id');
-            $table->foreign('dev_id')->references('id')->on('devs')->onDelete('cascade');
+            $table->string('name');
+            $table->string('firstname');
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
+            $table->string('email')->unique();
+            $table->string('phone');
+            $table->string('address');
             $table->integer('tjm');
             $table->string('niveau');
             $table->string('french_level')->nullable();
             $table->string('english_level')->nullable();
+            $table->string('photo')->nullable();
             $table->tinyInteger('ispublic')->default(1);
+            $table->unsignedBigInteger('dev_id');
+            $table->foreign('dev_id')->references('id')->on('devs')->onDelete('cascade');
             $table->timestamps();
         });
     }

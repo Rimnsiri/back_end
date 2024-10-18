@@ -10,13 +10,19 @@ class Cv extends Model
     use HasFactory;
     
     protected $fillable = [
+        'name',
+        'firstname',
         'title',
         'description',
+        'email',
+        'phone',
+        'address',
+        'tjm',
+        'niveau',
         'dev_id', 
         'french_level', 
         'english_level',
-        'tjm',
-        'niveau',
+        'photo',
         'ispublic',
     ];
    
@@ -38,6 +44,6 @@ class Cv extends Model
 
     public function skills() {
         // Assurez-vous que le nom de la table pivot est correct
-        return $this->belongsToMany(Skill::class, 'cv_skills')->withPivot('nbrmonth', 'isprincipal');
+        return $this->belongsToMany(Skill::class, 'cv_skills')->withPivot('nbrmonth', 'isprincipal','isontop');
     }
 }

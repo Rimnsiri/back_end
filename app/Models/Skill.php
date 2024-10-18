@@ -11,10 +11,11 @@ class Skill extends Model
     protected $fillable = [
         'name',
         'image',
+        'issearchable',
     ];
-    public function exps()
+    public function experiences()
     {
-         return $this->belongsToMany(Experience::class, 'experience_skill', 'skill_id', 'exp_id');
+        return $this->belongsToMany(Experience::class, 'experience_skill');
     }
     public function cv()
     {

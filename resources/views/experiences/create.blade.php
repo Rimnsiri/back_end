@@ -60,17 +60,7 @@
                         </div>
                 
                         {{-- Champs du formulaire pour sélectionner des Skills --}}
-                        <div class="mb-3">
-                            <label for="skills" class="form-label">Skills</label>
-                            @foreach($skills as $skill)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{ $skill->id }}" id="skill{{ $skill->id }}" name="skills[]">
-                                    <label class="form-check-label" for="skill{{ $skill->id }}">
-                                        {{ $skill->name }}
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
+                       
                 
                         <button type="submit" class="btn btn-primary">Create</button>
                     </form>

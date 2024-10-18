@@ -12,7 +12,7 @@ use App\Models\Experience;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -39,43 +39,140 @@ class CvController extends Controller
         return view('cvs.create', compact('devs', 'skills', 'selectedDevId'));
     }
 
+    public function apiIndex(Request $request)
+    {
+        $criteria = json_decode($request->input('searchCriteria'), true);
+        
+        // Vérifier si la clé technologies est une chaîne et la convertir en tableau
+        if (isset($criteria['technologies']) && is_string($criteria['technologies'])) {
+            $criteria['technologies'] = explode(',', $criteria['technologies']);
+        }
+    
+        Log::info('Critères de recherche reçus:', ['criteria' => $criteria]);
+    
+        $query = Cv::query();
+    
+        // Filtre par TJM
+        if (isset($criteria['tjmMin'])) {
+            $query->where('tjm', '>=', $criteria['tjmMin']);
+        }
+        if (isset($criteria['tjmMax'])) {
+            $query->where('tjm', '<=', $criteria['tjmMax']);
+        }
+    
+        // Filtre par niveau
+        if (!empty($criteria['niveau'])) {
+            $query->whereIn('niveau', $criteria['niveau']);
+        }
+    
+        // Filtre par technologies
+        if (!empty($criteria['technologies'])) {
+            $techCount = count($criteria['technologies']);
+            $query->whereHas('skills', function ($subQuery) use ($criteria) {
+                $subQuery->whereIn('name', $criteria['technologies']);
+            }, '=', $techCount); // Assurez-vous d'avoir autant de correspondances que de technologies demandées
+        }
+    
+        $cvs = $query->with(['skills' => function($query) {
+            // Filtrer les compétences `isontop` dans la table `skills`
+            $query->where('isontop', true);
+        }])->get();
+    
+        // Extraire les développeurs unique
+        $results = $cvs->map(function ($cv) {
+            return [
+                'id' => $cv->id,
+                'name' => $cv->name,
+                'firstname' => $cv->firstname,
+                'tjm' => $cv->tjm,
+                'niveau' => $cv->niveau,
+                'skills' => $cv->skills->where('pivot.isontop', true),
+                'photo' => $cv->photo,
+                'ispublic' => $cv->ispublic,
+            ];
+        });
+    
+        Log::info('Résultats de la recherche:', ['results' => $results]);
+    
+        return response()->json($results);
+    }
 
 
 
+    public function getPublicCV($cvId)
+    {
+        $cv = Cv::with(['experiences','experiences.skills','educations', 'skills' => function ($query) {
+            $query->withPivot('nbrmonth', 'isprincipal','isontop');
+        }])
+            ->where('id', $cvId)  
+            ->where('ispublic', 1)
+            ->first();
 
+        if (!$cv) {
+            return response()->json(['message' => 'Public CV not found for this CV ID'], 404);
+        }
 
+        return response()->json($cv);
+    }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'name'=>'required|string|max:255',
+            'firstname'=>'required|string|max:255',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'email' => 'required|string|email|max:255|unique:cvs,email',
+            'phone' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'tjm' => 'sometimes|required|numeric',
+            'niveau' => 'sometimes|required|string',
             'dev_id' => 'sometimes|required|exists:devs,id',
             'french_level' => 'nullable|string',
             'english_level' => 'nullable|string',
-            'tjm' => 'sometimes|required|numeric',
-            'niveau' => 'sometimes|required|string',
+            'photo' => 'nullable|image|max:1999',
             'ispublic' => 'required|boolean',
         ]);
-
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos', 'public'); // Sauvegarde dans storage/app/public/photos
+            $validatedData['photo'] = $photoPath; // Enregistrement du chemin de la photo
+        }
         $cv = Cv::create($validatedData);
-
+        
         if ($request->has('education')) {
+           
             foreach ($request->education as $education) {
+
+                $education['is_current'] = isset($education['is_current']) && $education['is_current'] == '1';
+
+                // Si is_current est 1, enddate doit être null
+                if ($education['is_current']) {
+                    $education['enddate'] = null;
+                }
+                
                 $validatedEducation = Validator::make($education, [
                     'diplome' => 'nullable|string|max:255',
                     'école' => 'nullable|string|max:255',
                     'startdate' => 'nullable|date',
                     'enddate' => 'nullable|date|after_or_equal:startdate',
                     'description' => 'nullable|string',
+                    'is_current' => 'nullable|boolean',
                 ])->validate();
 
                 $cv->educations()->create($validatedEducation);
             }
         }
         if ($request->has('experience')) {
+          
             foreach ($request->experience as $experienceData) {
                 $experienceData['cv_id'] = $cv->id;
+                
+                $experienceData['is_current'] = isset($experienceData['is_current']) && $experienceData['is_current'] == '1';
+
+            // Si is_current est 1, enddate doit être null
+            if ($experienceData['is_current']) {
+                $experienceData['enddate'] = null;
+            }
 
                 $validatedExperience = Validator::make($experienceData, [
                     'cv_id' => 'required|exists:cvs,id',
@@ -84,11 +181,15 @@ class CvController extends Controller
                     'startdate' => 'nullable|date',
                     'enddate' => 'nullable|date|after_or_equal:startdate',
                     'description' => 'nullable|string',
+                    'is_current' => 'nullable|boolean',
                 ])->validate();
 
+              
                 // Créer l'expérience
                 $experience = Experience::create($validatedExperience);
-
+                if (isset($experienceData['skills']) && is_array($experienceData['skills'])) {
+                    $experience->skills()->sync($experienceData['skills']); 
+                }
                 // Vous pouvez ajouter le traitement des compétences ici si nécessaire
             }
         }
@@ -104,7 +205,9 @@ class CvController extends Controller
 
                 $cv->skills()->attach($skillId, [
                     'nbrmonth' => $request->newSkillNbrMonth[$index],
-                    'isprincipal' => isset($request->newSkillIsPrincipal[$index]) && $request->newSkillIsPrincipal[$index] == 1 ? true : false,
+                    'isprincipal' => isset($request->newSkillIsPrincipal[$index]) && $request->newSkillIsPrincipal[$index] == '1',
+                    'isontop' => isset($request->newSkillIsontop[$index]) && $request->newSkillIsontop[$index] == '1' ,
+                    
                 ]);
             }
         }
@@ -125,6 +228,7 @@ class CvController extends Controller
     {
         $devs = Dev::all(); // Récupère tous les développeurs
         $skills = Skill::all();
+        $cv->load('experiences.skills'); 
 
         return view('cvs.edit', compact('cv', 'devs', 'skills'));
     }
@@ -143,6 +247,8 @@ class CvController extends Controller
             'experiences.*.description' => 'nullable|string',
             'experiences.*.startdate' => 'nullable|date',
             'experiences.*.enddate' => 'nullable|date',
+            'technologies.*.id' => 'sometimes|exists:technologies,id',
+            'technologies.*.is_checked' => 'required_with:technologies.*.id|boolean',
             // Ajout des règles de validation pour les éducations
             'educations.*.id' => 'sometimes|exists:education,id',
             'educations.*.diplome' => 'required|string',
@@ -154,11 +260,18 @@ class CvController extends Controller
             'english_level' => 'nullable|string',
             'tjm' => 'required|numeric',
             'niveau' => 'required|string',
+            'name'=> 'required|string',
+            'firstname' =>'required|string',
+            'email' =>'required|string',
+            'phone' =>'required|numeric',
+            'address' =>'required|string',
+            'photo' => 'sometimes|image|max:5000',
             'ispublic' => 'nullable|boolean',
             // Dans votre méthode validate
             'skills.*.new_skill_id' => 'sometimes|exists:skills,id',
             'skills.*.nbrmonth' => 'required_with:skills.*.new_skill_id|numeric|min:0',
             'skills.*.isprincipal' => 'required_with:skills.*.new_skill_id|boolean',
+            'skills.*.isontop' => 'required_with:skills.*.new_skill_id|boolean',
 
         ]);
         // Update the CV with validated data
@@ -167,6 +280,21 @@ class CvController extends Controller
             'english_level' => $request->english_level,
             'niveau' => $request->niveau,
         ]);
+
+        unset($data['name']);
+
+        // Vérifiez si une nouvelle photo a été téléchargée
+        if ($request->hasFile('photo')) {
+            // Supprimez l'ancienne photo si elle existe
+            if ($cv->photo && Storage::disk('public')->exists('photos/' . $cv->photo)) {
+                Storage::disk('public')->delete('photos/' . $cv->photo);
+            }
+    
+            // Téléchargez la nouvelle image
+            $path = $request->file('photo')->store('photos', 'public');
+            $data['photo'] = basename($path); // Enregistrer seulement le nom du fichier
+        }
+        
         $cv->update($data);
 
 
@@ -192,11 +320,12 @@ class CvController extends Controller
                 $cv->experiences()->save($newExperience);
 
                 // Synchroniser les compétences pour la nouvelle expérience
-                $skillsIds = $newExperienceData['skills'] ?? [];
+                $skillsIds = $newExperienceData['technologies'] ?? [];
                 $newExperience->skills()->sync($skillsIds);
             }
         }
 
+        
         if ($request->has('experiences')) {
             foreach ($request->input('experiences') as $index => $experienceData) {
                 // Vérifier si le titre n'est pas vide
@@ -205,14 +334,34 @@ class CvController extends Controller
                         // Mise à jour de l'expérience existante
                         $experience = Experience::find($experienceData['id']);
                         if ($experience) {
+
+
+                            $isCurrent = isset($experienceData['is_current']) && $experienceData['is_current'];
+                            // Déterminer la date de fin
+                            $endDate = $isCurrent ? null : $experienceData['enddate'];
+
+
                             // Mettre à jour les données de l'expérience
                             $experience->update([
                                 'title' => $experienceData['title'],
                                 'entreprisename' => $experienceData['entreprisename'],
                                 'startdate' => $experienceData['startdate'],
-                                'enddate' => $experienceData['enddate'],
+                                'enddate' => $endDate,
+                                'is_current' => $isCurrent,
                                 'description' => $experienceData['description'],
                             ]);
+                            if (isset($experienceData['technologies']) && is_array($experienceData['technologies'])) {
+                                // Filtrer et récupérer les IDs des technologies sélectionnées
+                                $technologiesIds = array_filter($experienceData['technologies']);
+        
+                                // Ne synchroniser que si des technologies sont présentes
+                                if (!empty($technologiesIds)) {
+                                    $experience->skills()->sync($technologiesIds);
+                                } else {
+                                    // Si aucune technologie n'est cochée, on garde les anciennes sans les effacer
+                                    $experience->skills()->sync([]);
+                                }
+                            }
                         }
                     } else {
                         // Ajout d'une nouvelle expérience
@@ -225,6 +374,13 @@ class CvController extends Controller
                             'description' => $experienceData['description'],
                         ]);
                         $cv->experiences()->save($newExperience);
+                        if (isset($experienceData['technologies']) && is_array($experienceData['technologies'])) {
+                            $technologiesIds = array_filter($experienceData['technologies']);
+        
+                            if (!empty($technologiesIds)) {
+                                $newExperience->skills()->sync($technologiesIds);
+                            }
+                        }
                     }
                 }
             }
@@ -252,12 +408,14 @@ class CvController extends Controller
                     $cv->skills()->updateExistingPivot($skillData['id'], [
                         'nbrmonth' => $skillData['nbrmonth'],
                         'isprincipal' => $skillData['isprincipal'] ?? false,
+                        'isontop' => $skillData['isontop'] ?? false,
                     ]);
                 } else {
                     // Ajouter la compétence au CV
                     $cv->skills()->attach($skillData['id'], [
                         'nbrmonth' => $skillData['nbrmonth'],
                         'isprincipal' => $skillData['isprincipal'] ?? false,
+                        'isontop' => $skillData['isontop'] ?? false,
                     ]);
                 }
             }
@@ -274,7 +432,8 @@ class CvController extends Controller
                     // Nouvelle compétence
                     $cv->skills()->attach($skillData['new_skill_id'], [
                         'nbrmonth' => $skillData['nbrmonth'] ?? 0,
-                        'isprincipal' => isset($skillData['isprincipal']) ? $skillData['isprincipal'] : false
+                        'isprincipal' => isset($skillData['isprincipal']) ? $skillData['isprincipal'] : false,
+                        'isontop' => $skillData['isontop'] ?? false,
                     ]);
                 }
             }
@@ -318,12 +477,16 @@ class CvController extends Controller
                         // Mise à jour de l'éducation existante
                         $education = Education::find($educationData['id']);
                         if ($education) {
+                           
+                            $isCurrent = isset($educationData['is_current']) && $educationData['is_current'];
+                            $endDate = $isCurrent ? null : $educationData['enddate'];
                             // Mettre à jour les données de l'éducation
                             $education->update([
                                 'diplome' => $educationData['diplome'],
                                 'école' => $educationData['école'],
                                 'startdate' => $educationData['startdate'],
-                                'enddate' => $educationData['enddate'],
+                                'enddate' => $endDate,
+                               'is_current' => $isCurrent,
                                 'description' => $educationData['description'],
                             ]);
                         }
@@ -395,7 +558,6 @@ class CvController extends Controller
         // Redirect with a success message
         return redirect()->route('cvs.index')->with('success', 'CV updated successfully.');
     }
-
 
 
 

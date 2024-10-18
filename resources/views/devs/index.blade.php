@@ -1,3 +1,5 @@
+
+
 @extends('layouts.app')
 
 @section('title', 'Liste des développeurs')
@@ -9,7 +11,7 @@
         <div class="p-2 ">
             <a href="{{ route('devs.create') }}" >
                 <button type="submit"
-                class="px-5 py-2.5 mt-2 rounded-lg text-white text-sm tracking-wider font-medium border border-current outline-none bg-orange-700 hover:bg-orange-800 active:bg-orange-700">Ajouter Développeurs</button>
+                class="!mt-8 px-8 py-2.5 bg-blue-500 text-sm text-white hover:bg-blue-600 rounded-sm">Ajouter Développeurs</button>
                                     </div>
                                     
             </a>

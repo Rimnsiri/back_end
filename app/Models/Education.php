@@ -17,7 +17,8 @@ class Education extends Model
         'description',
         'startdate',
         'enddate',
-        'cv_id'
+        'cv_id',
+        'is_current',
     ];
 
     protected $dates = ['startdate', 'enddate'];

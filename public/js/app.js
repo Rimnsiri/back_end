@@ -1,3 +1,72 @@
+
+    function filterSkills() {
+        const searchValue = document.getElementById('skillSearch').value.toLowerCase();
+        const options = document.querySelectorAll('.dropdown-menu .form-check');
+
+        
+
+        options.forEach(option => {
+            const label = option.querySelector('label').textContent.toLowerCase();
+            console.log("Étiquette actuelle :", label);
+
+            if (label.includes(searchValue)) {
+                option.style.display = ''; // Affiche l'option
+            } else {
+                option.style.display = 'none'; // Cache l'option
+            }
+        });
+    }
+    let selectedSkills = [];
+
+    function handleSkillSelection(skillId, skillName) {
+        const checkbox = document.getElementById('skill-' + skillId);
+    
+        if (checkbox.checked) {
+            // Ajouter la technologie à la liste si elle est cochée
+            selectedSkills.push({ id: skillId, name: skillName });
+        } else {
+            // Retirer la technologie de la liste si elle est décochée
+            selectedSkills = selectedSkills.filter(skill => skill.id !== skillId);
+        }
+    
+        updateButtonLabel();
+    }
+    
+    // Met à jour le label du bouton avec les technologies sélectionnées
+    function updateButtonLabel() {
+        const button = document.getElementById('dropdownMenuButton');
+        button.innerHTML = ''; // Effacer le contenu précédent
+    
+        if (selectedSkills.length > 0) {
+            // Crée les badges pour les technologies sélectionnées
+            selectedSkills.forEach(skill => {
+                const skillBadge = document.createElement('span');
+                skillBadge.className = 'badge bg-white text-dark me-2'; // Classes Bootstrap pour style
+                skillBadge.style.border = "1px solid #ccc"; // Ajout d'une bordure
+                skillBadge.innerHTML = `${skill.name} <span class="ms-1" style="cursor: pointer;" onclick="removeSkill('${skill.id}')">&times;</span>`;
+                
+                button.appendChild(skillBadge);
+            });
+        } else {
+            // Si aucune technologie n'est sélectionnée, remettre le texte par défaut
+            button.innerHTML = 'Sélectionnez les technologies';
+        }
+    }
+    
+    // Fonction pour retirer une technologie en cliquant sur le "x"
+    function removeSkill(skillId) {
+        // Décoche la case correspondante
+        document.getElementById('skill-' + skillId).checked = false;
+    
+        // Supprime la technologie de la liste
+        selectedSkills = selectedSkills.filter(skill => skill.id !== skillId);
+    
+        // Met à jour l'affichage
+        updateButtonLabel();
+    }
+    
+
+    
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM fully loaded and parsed');
 

@@ -13,6 +13,7 @@ class Cv_skill extends Model
         'skill_id',
         'nbrmonth',
         'isprincipal',
+        'isontop',
     ];
 
     public function cv()

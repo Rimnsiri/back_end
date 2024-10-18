@@ -17,6 +17,11 @@
                             <label for="name">Skill Name</label>
                             <input type="text" class="form-control" id="name" name="name" value="{{ $skill->name }}" required>
                         </div>
+                        <div class="form-group">
+                            <label for="issearchable">Consultable</label>
+                            <input type="checkbox" id="issearchable" name="issearchable" value="1" {{ $skill->issearchable ? 'checked' : '' }}>
+                        </div>
+                        
 
                         <div class="form-group">
                             <label for="image">Skill Image</label>

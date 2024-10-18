@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Storage;
 class SkillController extends Controller
 {
       // Afficher la liste des compétences
-      public function index()
+      public function index(Request $request)
       {
-          $skills = Skill::all();
+        $skills = Skill::orderBy('name')->paginate(5); 
           return view('skills.index', compact('skills'));
       }
 
@@ -23,10 +23,13 @@ class SkillController extends Controller
       {
           $request->validate([
               'name' => 'required|string',
+              'issearchable' =>'nullable|boolean',
               'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+              
           ]);
   
           $skill = new Skill($request->only(['name', 'image']));
+          $skill->issearchable = $request->has('issearchable');
           
           // Si une image est fournie, la sauvegarder et stocker le chemin
           if ($request->hasFile('image')) {
@@ -53,11 +56,13 @@ class SkillController extends Controller
           $request->validate([
               'name' => 'required|string',
               'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+              'issearchable' =>'nullable|boolean',
           ]);
   
           $skill = Skill::findOrFail($id);
   
-          $skill->fill($request->only(['name']));
+          $skill->fill($request->only(['name' ]));
+          $skill->issearchable = $request->has('issearchable');
   
         
           if ($request->hasFile('image')) {
@@ -80,7 +85,7 @@ class SkillController extends Controller
       }
 
       public function getSkills() {
-        $skills = Skill::all();
+        $skills = Skill::where('issearchable', true)->orderBy('name', 'asc')->get();
         return response()->json($skills);
     }
     
