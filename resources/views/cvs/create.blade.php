@@ -222,16 +222,23 @@
                                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                         name="education[0][description]" rows="5" required></textarea>
                                                 </div>
-                                                <button type="button" class="remove-education btn btn-danger"><i
-                                                        class="fa-solid fa-trash"></i></button>
+                                                <button type="button" class="remove-education btn">
+                                                  <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z" clip-rule="evenodd"/>
+                                                  </svg>
+                                                </button>
                                             </div>
                                           
                                         </div>
                                     </div>
                                     <div class=" mt-7">
                                         <button type="button" id="addEducation"
-                                            class="text-red-700    focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2  dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"><i
-                                                class="fa-solid fa-plus"></i> Education</button>
+                                            class="text-center flex items-center gap-2">
+                                            <svg class="w-6 h-6 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                              </svg> 
+                                              <span class="text-blue-600 dark:text-white">Ajouter Education</span>
+                                            </button>
                                     </div>
                               
                             </div>
@@ -335,17 +342,23 @@
     
     
     
-                                        <button type="button" class="remove-experience btn btn-danger"><i
-                                                class="fa-solid fa-trash"></i></button>
+                                        <button type="button" class="remove-experience btn ">
+                                             <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z" clip-rule="evenodd"/>
+                                          </svg>
+                                        </button>
                                     </div>
                                   
                                 </div>
                             </div>
 
                             <!-- Bouton pour ajouter une nouvelle expérience -->
-                            <div class="mt-7">
-                                <button type="button" id="addExperience" class="btn btn-info"><i
-                                        class="fa-solid fa-plus"></i> Experience</button>
+                            <div class="mt-3">
+                                <button type="button" id="addExperience" class="btn flex items-center gap-2">
+                                    <svg class="w-6 h-6 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                  </svg> 
+                                  <span class="text-blue-600 dark:text-white">Ajouter Experience</span></button>
                             </div>
                         </div>
 
@@ -394,15 +407,21 @@
                                         </div>
     
     
-                                        <button type="button" class="remove-skill btn btn-danger"><i
-                                                class="fa-solid fa-trash"></i></button>
+                                        <button type="button" class="remove-skill btn">
+                                            <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z" clip-rule="evenodd"/>
+                                          </svg>
+                                        </button>
                                     </div>
                                     
                                 </div>
                             </div>
                             <div class="mt-7">
-                                <button type="button" id="addSkill" class="btn btn-info"><i
-                                        class="fa-solid fa-plus"></i> Skill</button>
+                                <button type="button" id="addSkill" class="btn flex items-center gap-2">
+                                    <svg class="w-6 h-6 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                  </svg> 
+                                  <span class="text-blue-600 dark:text-white">Ajouter Compétance</span></button></button>
                             </div>
                         </div>
                       

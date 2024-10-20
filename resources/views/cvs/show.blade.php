@@ -8,7 +8,7 @@
                 <div class="col-span-4 sm:col-span-3">
                     <div class="bg-white shadow rounded-lg p-6">
                         <div class="flex flex-col items-center">
-                            <img src="https://randomuser.me/api/portraits/men/94.jpg"
+                            <img src="{{ asset('storage/' . $cv->photo) }}"
                                 class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
 
                             </img>
@@ -20,7 +20,22 @@
                         </div>
                         <hr class="my-6 border-t border-gray-300">
                         <div class="flex flex-col">
-                            <span class="text-gray-700 uppercase font-bold tracking-wider mb-2">Skills</span>
+                            <span class="text-gray-700 uppercase font-bold tracking-wider mb-2">Contact</span>
+                            <ul class="grid grid-cols-1 ">
+                                    <li class="mb-0"> 
+                                        {{ $cv->email }}
+                                    </li>
+                                    <li class="mb-0"> 
+                                        {{ $cv->address }}
+                                    </li>
+                                    <li class="mb-0"> 
+                                        {{ $cv->phone }}
+                                    </li>
+                            </ul>
+                        </div>
+                        <hr class="my-6 border-t border-gray-300">
+                        <div class="flex flex-col">
+                            <span class="text-gray-700 uppercase font-bold tracking-wider mb-2">Compétences</span>
                             <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-2">
                                 @foreach ($cv->skills as $skill)
                                     <li class="bg-gray-200 p-2 rounded mb-0"> 
@@ -29,10 +44,10 @@
                                 @endforeach
                             </ul>
                         </div>
-                            <span class="text-gray-700 uppercase font-bold tracking-wider mb-2 mt-1">langage</span>
-                            <p>niveaux français</p> <strong>{{ $cv->french_level }}</strong>
+                            <span class="text-gray-700 uppercase font-bold tracking-wider mb-2 mt-1">langues</span>
+                            <p>Français</p> <strong>{{ $cv->french_level }}</strong>
 
-                            <p> nivaux anglais</p> <strong> {{ $cv->english_level }}</strong>
+                            <p>Anglais</p> <strong> {{ $cv->english_level }}</strong>
                     </div>
                 </div>
                 <div class="col-span-4 sm:col-span-9">

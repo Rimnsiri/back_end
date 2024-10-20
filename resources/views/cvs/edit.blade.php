@@ -86,15 +86,6 @@
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 required>
                                         </div>
-
-                                        <div class="sm:col-span-2">
-                                            <label for="description"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                                            <textarea
-                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                id="description" name="description"
-                                                rows="3">{{ $cv->description }}</textarea>
-                                        </div>
                                         <div class="w-full">
                                             <label for="tjm"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">TJM</label>
@@ -124,7 +115,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="w-full">
                                             <label for="french_level"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Niveau
                                                 de français</label>
@@ -148,7 +139,7 @@
                                         </div>
 
                                         {{-- English Level --}}
-                                        <div class="mb-3">
+                                        <div class="w-full">
                                             <label for="english_level"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Niveau
                                                 d'anglais</label>
@@ -172,21 +163,20 @@
                                         </div>
                                         <div class="form-group">
                                             
-                                            <label for="photo">Changer la photo</label>
-                                            <input type="file" class="form-control-file" id="photo" name="photo">
+                                            <label for="photo" class="block mb-2 font-bold text-gray-700">Changer la photo</label>
+                                            <input type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-blue-700 hover:file:bg-violet-100" id="photo" name="photo">
                                         </div>
+                                        <div class="sm:col-span-2">
+                                            <label for="description"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                                            <textarea
+                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                id="description" name="description"
+                                                rows="3">{{ $cv->description }}</textarea>
+                                        </div>
+                                       
 
-                                        <div class="mb-3">
-                                            <label for="dev_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Developer</label>
-                                            <select class="form-control" id="dev_id" name="dev_id" required>
-                                                <option value="">Select a Developer</option>
-                                                @foreach ($devs as $dev)
-                                                <option value="{{ $dev->id }}" {{ $cv->dev_id == $dev->id ? 'selected' :
-                                                    '' }}>
-                                                    {{ $dev->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        
                                     </div>
 
                                 </div>
@@ -203,11 +193,13 @@
                                     </div>
                                     <div id="accordion-color" data-accordion="collapse" data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white">
                                         @foreach ($cv->experiences as $index => $experience)
-                                            <h2 id="accordion-color-heading-{{ $experience->id }}">
+                                        <div class="experience-section" id="experience-{{ $experience->id }}">
+                                            <h2 id="accordion-color-heading-{{ $experience->id }}" >
                                                 <button type="button" class="flex items-center justify-between w-full gap-3 p-3 font-medium text-gray-500 border border-b-0 border-gray-200 rtl:text-right rounded-t-xl focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" 
                                                         data-accordion-target="#accordion-color-body-{{ $experience->id }}" 
                                                         aria-expanded="false" 
-                                                        aria-controls="accordion-color-body-{{ $experience->id }}">
+                                                        aria-controls="accordion-color-body-{{ $experience->id }}"
+                                                        >
                                                     <span class="text-sm"> {{ $experience->title }} - {{ $experience->entreprisename }}</span>
                                                     <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
@@ -267,11 +259,18 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <button type="button" class="btn mt-7 btn-danger remove-experience" data-experience-id="{{ $experience->id }}"><i class="fa-solid fa-trash"></i></button>
+                                                        <button type="button" class="btn mt-7  remove-experience" data-experience-id="{{ $experience->id }}"> 
+                                                          <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                          </svg>
+                                                       </button>
+
                                                     </div>
                                                    
                                                 </div>
                                             </div>
+                                        </div>
+                                           
                                         @endforeach
                                     </div>
                                     
@@ -358,8 +357,11 @@
                                                         </div>
                                                     </div>
                                                     <button type="button"
-                                                        class="btn mt-7 btn-danger cancel-experience"><i
-                                                            class="fa-solid fa-xmark"></i></button>
+                                                        class="btn mt-7  cancel-experience">
+                                                          <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                            <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z" clip-rule="evenodd"/>
+                                                          </svg>
+                                                        </button>
                                                 </div>
                                             </div>
 
@@ -367,8 +369,12 @@
                                     </div>
 
 
-                                    <button type="button" class="btn mt-7 btn-primary add-experience"><i
-                                            class="fa-solid fa-plus"></i> Expérience</button>
+                                    <button type="button" class="btn   add-experience flex items-center gap-2">
+                                      <svg class="w-6 h-6 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                      </svg> 
+                                      <span class="text-blue-600 dark:text-white">Ajouter Experience</span>
+                                    </button>
                                 </div>
 
                             </div>
@@ -387,88 +393,86 @@
                                         <div id="accordion-skills" data-accordion="collapse"
                                             data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white">
                                             @foreach ($cv->skills as $index => $skill)
-                                            <h2 id="accordion-skills-heading-{{ $index }}">
-                                                <button type="button"
-                                                    class="flex items-center justify-between w-full gap-3 p-2 font-medium text-gray-500 border border-b-0 border-gray-200 rtl:text-right focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
-                                                    data-accordion-target="#accordion-skills-body-{{ $index }}"
-                                                    aria-expanded="false"
-                                                    aria-controls="accordion-skills-body-{{ $index }}">
-                                                    <span class="text-sm">{{ $skill->name }}</span>
-                                                    <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none" viewBox="0 0 10 6">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
-                                                    </svg>
-                                                </button>
-                                            </h2>
-                                            <div id="accordion-skills-body-{{ $index }}" class="hidden"
-                                                aria-labelledby="accordion-skills-heading-{{ $index }}">
-                                                <div
-                                                    class="rounded-[5px] border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-9">
-                                                    <div class="grid grid-cols-2 gap-6 mb-3">
-                                                        <div class="w-full">
-                                                            <label for="skills[{{ $skill->id }}][id]"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom
-                                                                de la compétence</label>
-                                                            <select name="skills[{{ $skill->id }}][id]"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                                <option value="">Sélectionnez une compétence
-                                                                </option>
-                                                                @foreach ($skills as $skillOption)
-                                                                <option value="{{ $skillOption->id }}" {{ $skillOption->
-                                                                    id == $skill->id ? 'selected' : '' }}>
-                                                                    {{ $skillOption->name }}
-                                                                </option>
-                                                                @endforeach
-                                                            </select>
+                                            <div class="skill-form-group">
+                                                <h2 id="accordion-skills-heading-{{ $index }}">
+                                                    <button type="button"
+                                                        class="flex items-center justify-between w-full gap-3 p-2 font-medium text-gray-500 border border-b-0 border-gray-200 rtl:text-right focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
+                                                        data-accordion-target="#accordion-skills-body-{{ $index }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="accordion-skills-body-{{ $index }}">
+                                                        <span class="text-sm">{{ $skill->name }}</span>
+                                                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none" viewBox="0 0 10 6">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
+                                                        </svg>
+                                                    </button>
+                                                </h2>
+                                                <div id="accordion-skills-body-{{ $index }}" class="hidden"
+                                                    aria-labelledby="accordion-skills-heading-{{ $index }}">
+                                                    <div
+                                                        class="rounded-[5px] border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-9">
+                                                        <div class="grid grid-cols-2 gap-6 mb-3">
+                                                            <div class="w-full">
+                                                                <label for="skills[{{ $skill->id }}][id]"
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom
+                                                                    de la compétence</label>
+                                                                <select name="skills[{{ $skill->id }}][id]"
+                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                                    <option value="">Sélectionnez une compétence
+                                                                    </option>
+                                                                    @foreach ($skills as $skillOption)
+                                                                    <option value="{{ $skillOption->id }}" {{ $skillOption->
+                                                                        id == $skill->id ? 'selected' : '' }}>
+                                                                        {{ $skillOption->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="w-full">
+                                                                <label for="skills[{{ $skill->id }}][nbrmonth]"
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre
+                                                                    de mois</label>
+                                                                <input type="number"
+                                                                    name="skills[{{ $skill->id }}][nbrmonth]"
+                                                                    value="{{ $skill->pivot->nbrmonth }}"
+                                                                    placeholder="Nombre de mois"
+                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                            </div>
+                                                            <div class="w-full">
+                                                                <input type="hidden"
+                                                                    name="skills[{{ $skill->id }}][isprincipal]" value="0">
+                                                                <input type="checkbox"
+                                                                    name="skills[{{ $skill->id }}][isprincipal]" value="1"
+                                                                    {{ $skill->pivot->isprincipal ? 'checked' : '' }}>
+                                                                <label class="form-check-label">Compétence principale
+                                                                    ?</label>
+                                                            </div>
+                                                            <div class="w-full">
+                                                                <input type="hidden"
+                                                                    name="skills[{{ $skill->id }}][isontop]" value="0">
+                                                                <input type="checkbox"
+                                                                    name="skills[{{ $skill->id }}][isontop]" value="1" {{
+                                                                    $skill->pivot->isontop ? 'checked' : '' }}>
+                                                                <label class="form-check-label">Is on top?</label>
+                                                            </div>
+                                                            <button type="button" class="btn mt-7  remove-skill"
+                                                                data-skill-id="{{ $skill->id }}">
+                                                                <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                                </svg>
+                                                            </button>
                                                         </div>
-                                                        <div class="w-full">
-                                                            <label for="skills[{{ $skill->id }}][nbrmonth]"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre
-                                                                de mois</label>
-                                                            <input type="number"
-                                                                name="skills[{{ $skill->id }}][nbrmonth]"
-                                                                value="{{ $skill->pivot->nbrmonth }}"
-                                                                placeholder="Nombre de mois"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                        </div>
-                                                        <div class="w-full">
-                                                            <input type="hidden"
-                                                                name="skills[{{ $skill->id }}][isprincipal]" value="0">
-                                                            <input type="checkbox"
-                                                                name="skills[{{ $skill->id }}][isprincipal]" value="1"
-                                                                {{ $skill->pivot->isprincipal ? 'checked' : '' }}>
-                                                            <label class="form-check-label">Compétence principale
-                                                                ?</label>
-                                                        </div>
-                                                        <div class="w-full">
-                                                            <input type="hidden"
-                                                                name="skills[{{ $skill->id }}][isontop]" value="0">
-                                                            <input type="checkbox"
-                                                                name="skills[{{ $skill->id }}][isontop]" value="1" {{
-                                                                $skill->pivot->isontop ? 'checked' : '' }}>
-                                                            <label class="form-check-label">Is on top?</label>
-                                                        </div>
-                                                        <button type="button" class="btn mt-7 btn-danger remove-skill"
-                                                            data-skill-id="{{ $skill->id }}">
-                                                            <i class="fa-solid fa-trash"></i>
-                                                        </button>
+    
                                                     </div>
-
                                                 </div>
-                                            </div>
+                                            </div> 
                                             @endforeach
                                         </div>
-
-
-
                                     </div>
                                     <input type="hidden" name="skills_to_delete" id="skills_to_delete" value="">
 
-
-                                    <!-- Formulaire caché pour une nouvelle compétence -->
-                                    <!-- Formulaire caché pour une nouvelle compétence -->
                                     <div class="skill-form-container" style="display: none;">
                                         <div class="skill-section">
                                             <div
@@ -516,8 +520,11 @@
                                                     </div>
 
 
-                                                    <button type="button" class="btn mt-7 btn-danger cancel-skill"><i
-                                                            class="fa-solid fa-xmark"></i></button>
+                                                    <button type="button" class="btn mt-7  cancel-skill">
+                                                        <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z" clip-rule="evenodd"/>
+                                                      </svg>
+                                                    </button>
                                                 </div>
 
                                             </div>
@@ -527,9 +534,12 @@
 
 
 
-                                    <button type="button" class="btn btn-primary add-skill"><i
-                                            class="fa-solid fa-plus"></i>
-                                        Compétence</button>
+                                    <button type="button" class="btn add-skill flex items-center gap-2">
+                                      <svg class="w-6 h-6 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                      </svg>
+                                      <span class="text-blue-600 dark:text-white">Ajouter compétence</span>
+                                    </button>
                                 </div>
 
                             </div>
@@ -549,8 +559,9 @@
 
                                         <div id="accordion-education" data-accordion="collapse"
                                             data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white">
-                                            @foreach ($cv->educations as $index => $education)
-                                            <h2 id="accordion-education-heading-{{ $index }}">
+                                        @foreach ($cv->educations as $index => $education)
+                                        <div id="education_section_{{ $education->id }}">
+                                            <h2 id="accordion-education-heading-{{ $education->id }}">
                                                 <button type="button"
                                                     class="flex items-center justify-between w-full gap-3 p-3 font-medium text-gray-500 border border-b-0 border-gray-200 rtl:text-right focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
                                                     data-accordion-target="#accordion-education-body-{{ $index }}"
@@ -632,14 +643,18 @@
                                                                 required>{{ $education->description }}</textarea>
                                                         </div>
 
-                                                        <button type="button" class="btn btn-danger remove-education"
-                                                            data-education-id="{{ $education->id }}"><i
-                                                                class="fa-solid fa-trash"></i></button>
+                                                        <button type="button" class="btn  remove-education"
+                                                            data-education-id="{{ $education->id }}">
+                                                            <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                            </svg>
+                                                        </button>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            @endforeach
+                                        </div>
+                                        @endforeach
                                         </div>
 
                                     </div>
@@ -686,8 +701,12 @@
                                                     </div>
                                                     <!-- Ajoutez un champ caché pour le cv_id si nécessaire -->
                                                     <input type="hidden" name="cv_id" value="{{ $cv->id }}">
-                                                    <button type="button" class="btn mt-7 btn-danger cancel-education"><i
-                                                            class="fa-solid fa-xmark"></i></button>
+                                                    <button type="button" class="btn mt-7  cancel-education ">
+                                                    <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                    
+                                                    </button>
                                                 </div>
                                                 
                                             </div>
@@ -700,8 +719,12 @@
 
 
 
-                                    <button type="button" class="btn btn-primary add-education"><i
-                                            class="fa-solid fa-plus"></i> Education</button>
+                                    <button type="button" class="btn  add-education flex items-center gap-2">
+                                      <svg class="w-6 h-6 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                      </svg> 
+                                      <span class="text-blue-600 dark:text-white">Ajouter Education</span>
+                                    </button>
                                 </div>
 
                             </div>
@@ -778,6 +801,7 @@
             }
         });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -798,36 +822,43 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-            // Gestionnaire d'événements pour chaque bouton de suppression d'expérience
-            document.querySelectorAll('.remove-experience').forEach(button => {
-                button.addEventListener('click', function() {
-                    // Obtenez l'ID de l'expérience à partir de l'attribut data-experience-id du bouton cliqué
-                    let experienceId = this.getAttribute('data-experience-id');
+   document.addEventListener('DOMContentLoaded', function() {
+    // Gestionnaire d'événements pour chaque bouton de suppression d'expérience
+    document.querySelectorAll('.remove-experience').forEach(button => {
+        button.addEventListener('click', function() {
+            // Obtenez l'ID de l'expérience à partir de l'attribut data-experience-id du bouton cliqué
+            let experienceId = this.getAttribute('data-experience-id');
 
-                    // Récupérez l'élément input caché qui contient les IDs des expériences à supprimer
-                    let experiencesToDelete = document.getElementById('experiences_to_delete');
+            // Récupérez l'élément input caché qui contient les IDs des expériences à supprimer
+            let experiencesToDelete = document.getElementById('experiences_to_delete');
 
-                    // Ajoutez l'ID de l'expérience à supprimer au champ caché
-                    if (experiencesToDelete) {
-                        if (experiencesToDelete.value) {
-                            experiencesToDelete.value += ',' + experienceId;
-                        } else {
-                            experiencesToDelete.value = experienceId;
-                        }
-                    } else {
-                        console.error("Element with ID 'experiences_to_delete' not found.");
-                    }
+            // Ajoutez l'ID de l'expérience à supprimer au champ caché
+            if (experiencesToDelete) {
+                if (experiencesToDelete.value) {
+                    experiencesToDelete.value += ',' + experienceId;
+                } else {
+                    experiencesToDelete.value = experienceId;
+                }
+            } else {
+                console.error("Element with ID 'experiences_to_delete' not found.");
+            }
 
-                    // Masquez visuellement la section d'expérience dans l'interface utilisateur
-                    let experienceSection = document.getElementById('experience_section_' +
-                        experienceId);
-                    if (experienceSection) {
-                        experienceSection.style.display = 'none';
-                    }
-                });
-            });
+            // Masquez visuellement la section d'expérience dans l'interface utilisateur
+            let experienceSection = document.getElementById('accordion-color-body-' + experienceId);
+            let experienceHeader = document.getElementById('accordion-color-heading-' + experienceId); // Nouvellement ajouté
+
+            if (experienceSection) {
+                experienceSection.style.display = 'none';
+            }
+
+            // Masquez également l'en-tête correspondant
+            if (experienceHeader) {
+                experienceHeader.style.display = 'none'; 
+            }
         });
+    });
+});
+
 </script>
 
 <script>
@@ -845,7 +876,9 @@
 
             // Supprimez la section d'éducation du DOM
             var educationSection = document.getElementById('education_section_' + educationId);
-            educationSection.parentNode.removeChild(educationSection);
+    if (educationSection) {
+        educationSection.parentNode.removeChild(educationSection);
+    }
         }
 
         // Écouteur d'événement pour le bouton de suppression d'éducation
