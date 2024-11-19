@@ -157,11 +157,7 @@
                             @foreach ($skills as $skill)
                                 <tr>
                                     <td class="px-4 py-4 text-sm text-gray-800">{{ $skill->name }}</td>
-                                    <td class="px-4 py-4 text-sm text-gray-800">
-                                        <div class="w-[68px] block text-center py-1 border   rounded text-xs {{ $skill->issearchable ? ' text-green-500' : '  text-red-500' }}">
-                                            {{ $skill->issearchable? 'true' : 'false' }}
-                                        </div>
-                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-800">{{ $skill->issearchable }}</td>
                                     <td class="px-4 py-4 text-sm text-gray-800">
                                         @if ($skill->image)
                                             <img src="{{ Storage::url($skill->image) }}" width="50" height="50"
@@ -264,7 +260,9 @@
                         </tbody>
                     </table>
 
-                    
+                    <div class="mt-4">
+                        {{ $skills->links() }}
+                    </div>
                 </div>
 
                 <!-- Modal create  -->
@@ -300,7 +298,7 @@
                                             Image</label>
                                         <input type="file"
                                             class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-blue-700 hover:file:bg-violet-100"
-                                            id="image" name="image" >
+                                            id="image" name="image" required>
                                     </div>
 
                                     <div class="mt-4">

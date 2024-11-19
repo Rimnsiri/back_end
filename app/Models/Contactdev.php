@@ -22,8 +22,5 @@ class Contactdev extends Model
     {
         return $this->belongsTo(Dev::class);
     }
-    public function entreprise()
-    {
-        return $this->belongsTo(Compteentrepri::class, 'email', 'email');
-    }
+   
 }

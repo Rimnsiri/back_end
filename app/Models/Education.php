@@ -17,7 +17,7 @@ class Education extends Model
         'description',
         'startdate',
         'enddate',
-        'cv_id',
+        'dev_id',
         'is_current',
     ];
 
@@ -33,8 +33,8 @@ class Education extends Model
         return $this->enddate ? Carbon::parse($this->enddate)->format('d/m/Y') : 'N/A';
     }
 
-    public function cv()
+    public function dev()
     {
-        return $this->belongsTo(Cv::class);
+        return $this->belongsTo(Dev::class);
     }
 }

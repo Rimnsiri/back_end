@@ -22,7 +22,6 @@ return new class extends Migration
             $table->text('response')->nullable();  
             $table->timestamp('response_time')->nullable(); 
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->timestamps();
             $table->unique('email');
         });
     }

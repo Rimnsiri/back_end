@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cv_skills', function (Blueprint $table) {
+        Schema::create('dev_skills', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cv_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('dev_id')->constrained()->on('devs')->onDelete('cascade');
             $table->foreignId('skill_id')->constrained()->onDelete('cascade');
             $table->integer('nbrmonth')->default(0);
             $table->boolean('isprincipal');
+            $table->boolean('isontop')->default(false);
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cv_skills');
+        Schema::dropIfExists('dev_skills');
     }
 };

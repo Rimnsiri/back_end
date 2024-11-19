@@ -11,25 +11,35 @@ class Dev extends Model
     protected $fillable = [
         'name',
         'firstname',
-        'presentation',
+        'title',
+        'description',
         'email',
         'phone',
         'address',
+        'tjm',
+        'niveau',
+        'dev_id', 
+        'french_level', 
+        'english_level',
         'photo',
-        'note',
-        'comptedev_id'
+        'ispublic',
+        'isontop'
     ];
-    public function cvs()
+   
+   
+
+    public function educations()
     {
-        return $this->hasMany(Cv::class);
+        return $this->hasMany(Education::class);
     }
 
-    // Dev.php
-    public function comptedev() {
-        return $this->belongsTo(Comptedev::class, 'comptedev_id','id');
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class);
     }
-public function messages()
-{
-    return $this->hasMany(ContactDev::class);
-}
+
+    public function skills() {
+        // Assurez-vous que le nom de la table pivot est correct
+        return $this->belongsToMany(Skill::class, 'dev_skills')->withPivot('nbrmonth', 'isprincipal','isontop');
+    }
 }

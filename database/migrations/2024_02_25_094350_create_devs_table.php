@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('cvs', function (Blueprint $table) {
+        Schema::create('devs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('firstname');
@@ -25,8 +25,7 @@ return new class extends Migration {
             $table->string('english_level')->nullable();
             $table->string('photo')->nullable();
             $table->tinyInteger('ispublic')->default(1);
-            $table->unsignedBigInteger('dev_id');
-            $table->foreign('dev_id')->references('id')->on('devs')->onDelete('cascade');
+            $table->boolean('isontop')->default(false);
             $table->timestamps();
         });
     }
@@ -36,6 +35,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('cvs');
+        Schema::dropIfExists('devs');
     }
 };

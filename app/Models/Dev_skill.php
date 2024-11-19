@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cv_skill extends Model
+class Dev_skill extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'cv_id',
+        'dev_id',
         'skill_id',
         'nbrmonth',
         'isprincipal',
         'isontop',
     ];
 
-    public function cv()
+    public function dev()
     {
-        return $this->belongsTo(Cv::class); // Assurez-vous que le modèle Cv existe et est correct
+        return $this->belongsTo(Dev::class); // Assurez-vous que le modèle Cv existe et est correct
     }
 
     public function skill()

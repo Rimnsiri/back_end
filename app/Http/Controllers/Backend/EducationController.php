@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Education;
 use Carbon\Carbon;
-use App\Models\Cv;
+use App\Models\Dev;
 
 class EducationController extends Controller
 {
@@ -19,7 +19,7 @@ class EducationController extends Controller
     // Show the form for creating a new education
     public function create()
     {
-        $cvs = Cv::all();
+        $cvs = Dev::all();
         return view('educations.create', compact('cvs'));
     }
 
@@ -32,7 +32,7 @@ class EducationController extends Controller
             'startdate' => 'required|date',
             'enddate' => 'required|date',
             'description' => 'required',
-            'cv_id' => 'required|exists:cvs,id',
+            'Dev_id' => 'required|exists:cvs,id',
         ]);
 
         Education::create($request->all());

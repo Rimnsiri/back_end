@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Experience;
 use App\Models\Skill;
-use App\Models\Cv;
+use App\Models\Dev;
 use Carbon\Carbon;
 class ExperienceController extends Controller
 {
@@ -20,7 +20,7 @@ class ExperienceController extends Controller
         public function create()
         {
             $skills = Skill::all();
-            $cvs = Cv::all();
+            $Devs = Dev::all();
             return view('experiences.create', compact('skills','cvs'));
         }
         
@@ -35,7 +35,7 @@ class ExperienceController extends Controller
                 'description' => 'nullable|string',
                 'skills' => 'nullable|array',
                 'skills.*' => 'exists:skills,id', 
-                'cv_id' => 'required|exists:cvs,id',
+                'dev_id' => 'required|exists:devs,id',
             ]);
         
             $experience = Experience::create($validatedData);
@@ -58,7 +58,7 @@ class ExperienceController extends Controller
         {
             $experience = Experience::with('skills')->findOrFail($id);
             $skills = Skill::all();
-            $cvs = Cv::all();
+            $devs = Dev::all();
             return view('experiences.edit', compact('experience', 'skills','cvs'));
         }
     

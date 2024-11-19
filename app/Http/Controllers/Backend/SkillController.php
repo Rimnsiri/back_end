@@ -11,9 +11,10 @@ class SkillController extends Controller
       // Afficher la liste des compétences
       public function index(Request $request)
       {
-        $skills = Skill::orderBy('name')->paginate(5); 
+          $skills = Skill::orderBy('name')->get(); // Exécute la requête pour récupérer les compétences
           return view('skills.index', compact('skills'));
       }
+      
 
       public function create()
       {
@@ -24,7 +25,7 @@ class SkillController extends Controller
           $request->validate([
               'name' => 'required|string',
               'issearchable' =>'nullable|boolean',
-              'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+              'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
               
           ]);
   

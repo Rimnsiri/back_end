@@ -87,74 +87,42 @@ return new class extends Migration
                 ['name' => ' Conception graphique et maquettage', 'image' => 'photos/ Conception_graphique_et_maquettage.png'],
             
         ]);
+        
         DB::table('devs')->insert([
             [
-                'name' => 'Liam',
-                'firstname' => 'Bahroun',
-                'presentation' => 'Développeur web avec une expérience en Laravel et Angular.',
-                'email' => 'liam@silog.io',
-                'phone' => '00000000',
-                'address' => '******',
-                'photo' => 'storage/photos/john_doe.png',
-                'comptedev_id' => null, 
-            ],
-            [
-                'name' => 'Wael',
-                'firstname' => 'Gabriel',
-                'presentation' => 'Développeuse front-end spécialisée en React.',
-                'email' => 'gabriel@silog.io',
-                'phone' => '00000000',
-                'address' => '*******',
-                'photo' => 'storage/photos/jane_smith.png',
-                'comptedev_id' => null, 
-            ],
-            [
-            
-                'name' => 'Rami',
-                'firstname' => 'Rabeb',
-                'presentation' => 'Développeuse Web ',
-                'email' => ' rami@silog.io',
-                'phone' => '+33 4 79 19 45 15',
-                'address' => '*******',
-                'photo' => 'storage/photos/jane_smith.png',
-                'comptedev_id' => null, 
-            ],
-        ]);
-        DB::table('cvs')->insert([
-            [
-                'dev_id' => 1, 
+                 
                 'name' => 'Liam',
                 'firstname' => 'Bahroun',
                 'email' => 'liam@silog.io',
                 'phone' => '00000000',
-                'address' => '******',
+                'address' => 'Tunis',
                 'photo' => 'storage/photos/john_doe.png',
                 'title' => 'Développeur FullStack PHP, Symfony & Vue.Js',
                 'description' => 'Développeur web expérimenté avec une forte compétence en Laravel et Angular.',
-                'tjm' => 000, 
+                'tjm' => 50, 
                 'niveau' => 'Senior',
                 'french_level' => 'B2',
                 'english_level' => 'B2',
                 'ispublic' => 1,
             ],
             [
-                'dev_id' => 2, 
+                 
                 'name' => 'Wael',
                 'firstname' => 'Gabriel',
                 'email' => 'gabriel@silog.io',
                 'phone' => '00000000',
-                'address' => '*******',
+                'address' => 'tunis',
                 'photo' => 'storage/photos/jane_smith.png',
                 'title' => 'Développeur Full Stack ',
                 'description' => 'Développeur Full Stack ',
-                'tjm' => 000,
+                'tjm' => 50,
                 'niveau' => '****',
                 'french_level' => 'B2',
                 'english_level' => 'B2',
                 'ispublic' => 1,
             ],
             [
-                'dev_id' => 3, 
+                
                 'name' => 'Rami',
                 'firstname' => 'Rabeb',
                 'email' => ' rami@silog.io',
@@ -163,7 +131,7 @@ return new class extends Migration
                 'photo' => 'storage/photos/jane_smith.png',
                 'title' => 'Développeuse Web',
                 'description' => 'Développeuse Web.',
-                'tjm' => 000,
+                'tjm' =>50,
                 'niveau' => 'Senior',
                 'french_level' => 'B1',
                 'english_level' => 'A1',
@@ -172,7 +140,7 @@ return new class extends Migration
         ]);
         DB::table('education')->insert([
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'diplome' => 'Diplôme d\'ingénieur Génie Logiciel',
                 'école' => 'Université de Tunis',
                 'startdate' => '2012-09-15',
@@ -181,7 +149,7 @@ return new class extends Migration
                 'description' => 'Spécialisation en développement web et systèmes d\'information.',
             ],
             [
-                'cv_id' => 2, 
+                'dev_id' => 2, 
                 'diplome' => 'License en Science informatique',
                 'école' => 'Université de Tunis',
                 'startdate' => '2010-09-15',
@@ -190,7 +158,7 @@ return new class extends Migration
                 'description' => 'Spécification en Sciences de l\'Informatique',
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'diplome' => 'License en Science informatique',
                 'école' => 'Université de Tunis',
                 'startdate' => '2016-09-15',
@@ -205,12 +173,12 @@ return new class extends Migration
           
         
             [
-                'cv_id' => 1, // CV ID correspondant liam
+                'dev_id' => 1, // CV ID correspondant liam
                 'title' => ' Ingénieur d’études et Développement JAVA, Symfony & Angular',
                 'entreprisename' => 'OBG',
                 'startdate' => '2020-01-01',
                 'enddate' => '2024-01-01',
-                'is_current' => false,
+                'is_current' => true,
                 'description' =>"Conception et développement d'applications
                                   Intégration de l'equipe pour le poste (Analyse + traitement des bugs)
                                   Déploiment et monté en version pour les projets
@@ -219,7 +187,7 @@ return new class extends Migration
                                   Equipe : 1 Tech Lead, 2 Développeurs ",
             ],
             [
-                'cv_id' => 1, // CV ID correspondant liam
+                'dev_id' => 1, // CV ID correspondant liam
                 'title' => ' Ingénieur d’études et développement PHP',
                 'entreprisename' => '  E2Business Consultin',
                 'startdate' => '2019-01-01',
@@ -237,7 +205,7 @@ return new class extends Migration
                                 Equipe : 1 Tech Lead et 4 Développeurs ",
             ],
             [
-                'cv_id' => 1, // CV ID correspondant liam
+                'dev_id' => 1, // CV ID correspondant liam
                 'title' => ' Ingénieur d’Études et Développement Angular',
                 'entreprisename' => '  MG Software Solutions',
                 'startdate' => '2019-01-01',
@@ -252,7 +220,7 @@ return new class extends Migration
                  Equipe : 1 Tech Lead et 2 Développeurs ',
             ],
             [
-                'cv_id' => 1, // CV ID correspondant liam
+                'dev_id' => 1, // CV ID correspondant liam
                 'title' => 'Ingénieur d’Etude et Développement Nodejs',
                 'entreprisename' => ' AS Agency',
                 'startdate' => '2018-01-01',
@@ -264,7 +232,7 @@ return new class extends Migration
                                    Equipe : 1 Tech Lead et 4 Développeurs',
             ],
             [
-                'cv_id' => 1, // CV ID correspondant à liam
+                'dev_id' => 1, // CV ID correspondant à liam
                 'title' => ' Développeur PHP & Symfony',
                 'entreprisename' => 'Edonec',
                 'startdate' => '2016-01-01',
@@ -276,7 +244,7 @@ return new class extends Migration
                                     Equipe : 1 Tech Lead, 2 Développeurs,',
             ],
             [
-                'cv_id' => 2, // CV ID correspondant à Wael
+                'dev_id' => 2, // CV ID correspondant à Wael
                 'title' => 'Lead Dév Angular & Node.Js',
                 'entreprisename' => '  R-WAN Solutions',
                 'startdate' => '2021-01-01',
@@ -302,7 +270,7 @@ return new class extends Migration
                                   Equipe : 1 Lead Dév chargé de 15 Développeur",
             ],
             [
-                'cv_id' => 2, // CV ID correspondant à Wael
+                'dev_id' => 2, // CV ID correspondant à Wael
                 'title' => 'Ingénieur Support et Intégration',
                 'entreprisename' => ' ComeTel',
                 'startdate' => '2019-01-01',
@@ -324,7 +292,7 @@ return new class extends Migration
             
           
             [
-                'cv_id' => 3, // CV ID correspondant à Rami
+                'dev_id' => 3, // CV ID correspondant à Rami
                 'title' => ' Développeuse Web',
                 'entreprisename' => 'DevNet',
                 'startdate' => '2022-01-01',
@@ -343,7 +311,7 @@ return new class extends Migration
                                  Mise à jour des versions de modules.',
             ],
             [
-                'cv_id' => 3, // CV ID correspondant à Rami
+                'dev_id' => 3, // CV ID correspondant à Rami
                 'title' => ' Développeuse Web',
                 'entreprisename' => '  DevMix',
                 'startdate' => '2020-01-01',
@@ -356,7 +324,7 @@ return new class extends Migration
             ],
             
             [
-                'cv_id' => 3, // CV ID correspondant à Rami
+                'dev_id' => 3, // CV ID correspondant à Rami
                 'title' => ' Développeuse Web',
                 'entreprisename' => ' Zetabox',
                 'startdate' => '2019-01-01',
@@ -368,400 +336,465 @@ return new class extends Migration
             ],
          
         ]);
-        DB::table('cv_skills')->insert([
+    DB::table('dev_skills')->insert([
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 1, 
                 'nbrmonth' => 12, 
                 'isprincipal' => true, 
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 5, 
                 'nbrmonth' => 12, 
                 'isprincipal' => true, 
+                'isontop' => false,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 71, //php
                 'nbrmonth' => 12, 
                 'isprincipal' => true, 
+                'isontop' => false,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 19, //symfony
                 'nbrmonth' => 12, 
                 'isprincipal' => true, 
+                'isontop' => false,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 47, //laravel 
                 'nbrmonth' => 12, 
                 'isprincipal' => true, 
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 8,//mysql 
                 'nbrmonth' => 12, 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 48, // Microsoft SQL Server
                 'nbrmonth' => 12, 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 49, //postgresql 
                 'nbrmonth' => 12, 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 7,//mongo 
                 'nbrmonth' => 12, 
                 'isprincipal' => true, 
+                'isontop' => false,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 31, //html
                 'nbrmonth' => 12, 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 32,//css 
                 'nbrmonth' => 12, 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 46,//sass 
                 'nbrmonth' => 12, 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 21, 
                 'nbrmonth' => 3, //javascript 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 63,//angular.js 
                 'nbrmonth' => 12, 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 64, //angular 6 ,7,8
                 'nbrmonth' => 12, 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 20,//vue.js 
                 'nbrmonth' => 12, 
                 'isprincipal' => true, 
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 28, 
                 'nbrmonth' => 28, //knockoutjs
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' =>  15, 
                 'nbrmonth' => 15,//boststrap 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 67,//wordpress 
                 'nbrmonth' => 12, 
-                'isprincipal' => true, 
+                'isprincipal' => true,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 59,//linux 
                 'nbrmonth' => 12, 
                 'isprincipal' => false, 
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 39,//Scrumm
                 'nbrmonth' => 12, 
                 'isprincipal' => false, 
+                'isontop' => false,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 40,//Ux
                 'nbrmonth' => 12, 
                 'isprincipal' => false, 
+                'isontop' => false,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 34,//git
                 'nbrmonth' => 12, 
                 'isprincipal' => false, 
+                'isontop' => false,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 41,//TortoiseGit
                 'nbrmonth' => 12, 
                 'isprincipal' => false, 
+                'isontop' => false,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 42,//jenkins
                 'nbrmonth' => 12, 
                 'isprincipal' => false, 
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 43,//Sublime Text
                 'nbrmonth' => 12, 
-                'isprincipal' => false, 
+                'isprincipal' => false,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 44,//Brackets
                 'nbrmonth' => 12, 
-                'isprincipal' => false, 
+                'isprincipal' => false,
+                'isontop' => false, 
             ],
             [
-                'cv_id' => 1, 
+                'dev_id' => 1, 
                 'skill_id' => 45,//Brackets
                 'nbrmonth' => 12, 
-                'isprincipal' => false, 
+                'isprincipal' => false,
+                'isontop' => false, 
             ],
             //cv de wael gablriel
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 1,
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 2,//j2ee
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 3,//springmvc
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 4,// Hibernate
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 5,//nodejs
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 6,//express
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 7,//mongo
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 8,//mysql
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 9,//blockchain
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 10,//Ethereum
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 11,//	ERC20
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 12,//	GraphQL
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 13,//graphql
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 14,//angular
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 15,//css flex
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 16,//web3.js
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 17,//figma
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 18,//adobe suite
                 'nbrmonth' => 24,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 2,
+                'dev_id' => 2,
                 'skill_id' => 72,//Conception graphique et maquettage
                 'nbrmonth' => 24,
                 'isprincipal' => false,
+                'isontop' => false,
             ],
            
             
             //cv de rami rabeb
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 50,//django
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 51, //python
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 1,//java
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 52,//shellscript
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 53,//odoo 14,15
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 49,//PostgreSQL
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' =>true,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 8,//mysql
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 64,//angular
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 25,//JQuery
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 15,//bootstrap
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 55,//typescript
                 'nbrmonth' => 6,
                 'isprincipal' => true,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 56,//gitlab
                 'nbrmonth' => 6,
                 'isprincipal' => false,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 57,//github
                 'nbrmonth' => 6,
                 'isprincipal' => false,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 34,//git
                 'nbrmonth' => 6,
                 'isprincipal' => false,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 58,//win
                 'nbrmonth' => 6,
                 'isprincipal' => false,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 60,//agile
                 'nbrmonth' => 6,
                 'isprincipal' => false,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 61,//jira
                 'nbrmonth' => 6,
                 'isprincipal' => false,
+                'isontop' => false,
             ],
             [
-                'cv_id' => 3, 
+                'dev_id' => 3, 
                 'skill_id' => 42,//jenkins
                 'nbrmonth' => 6,
                 'isprincipal' => false,
+                'isontop' =>true,
             ],
             
             
@@ -772,255 +805,318 @@ return new class extends Migration
             [
                 'experience_id' => 1, 
                 'skill_id' => 19, 
+                
             ],
             [
                 'experience_id' => 1, 
-                'skill_id' => 20, 
+                'skill_id' => 20,
+                 
             ],
             [
                 'experience_id' => 1, 
-                'skill_id' => 21, 
+                'skill_id' => 21,
+                 
             ],
             [
                 'experience_id' => 1, 
-                'skill_id' => 22, 
+                'skill_id' => 22,
+                 
             ],
             [
                 'experience_id' => 1, 
                 'skill_id' => 1, 
+                
             ],
             [
                 'experience_id' => 1, 
                 'skill_id' => 23, 
+                
             ],
             [
                 'experience_id' => 2, 
-                'skill_id' => 24, 
+                'skill_id' => 24,
+                 
             ],
             [
                 'experience_id' => 2, 
-                'skill_id' => 25, 
+                'skill_id' => 25,
+                 
             ],
             [
                 'experience_id' => 2, 
-                'skill_id' => 26, 
+                'skill_id' => 26,
+                 
             ],
             [
                 'experience_id' => 2, 
-                'skill_id' => 31, 
+                'skill_id' => 31,
+                 
             ],
             [
                 'experience_id' => 2, 
-                'skill_id' => 32, 
+                'skill_id' => 32,
+                 
             ],
             [
                 'experience_id' => 2, 
-                'skill_id' => 15, 
+                'skill_id' => 15,
+                
             ],
             [
                 'experience_id' => 2, 
                 'skill_id' => 8, 
+               
             ],
             [
                 'experience_id' => 2, 
-                'skill_id' => 27, 
+                'skill_id' => 27,
+                
             ],
             [
                 'experience_id' => 2, 
-                'skill_id' => 39, 
+                'skill_id' => 39,
+                
             ],
             [
                 'experience_id' => 3, 
                 'skill_id' => 28,
+               
             ],
             [
                 'experience_id' => 3, 
                 'skill_id' => 29,
+               
             ],
             [
                 'experience_id' => 3, 
                 'skill_id' => 30,
+               
             ],
             [
                 'experience_id' => 3, 
                 'skill_id' => 31,
+                
             ],
             [
                 'experience_id' => 3, 
                 'skill_id' => 32,
+                
             ],
             [
                 'experience_id' => 3, 
                 'skill_id' => 33,
+                
             ],
             [
                 'experience_id' => 3, 
                 'skill_id' => 34,
+                
             ],
             [
                 'experience_id' => 4, 
-                'skill_id' => 5, //nodejs
+                'skill_id' => 5, 
+                //nodejs
             ],
             [
                 'experience_id' => 4, 
-                'skill_id' => 20, //vuejs
+                'skill_id' => 20,
+                 //vuejs
             ],
             [
                 'experience_id' => 4, 
-                'skill_id' => 21, 
+                'skill_id' => 21,
+                 
             ],
             [
                 'experience_id' => 4, 
-                'skill_id' => 35, 
+                'skill_id' => 35,
+                 
             ],
             [
                 'experience_id' => 4, 
-                'skill_id' => 36, //,socket
+                'skill_id' => 36,
+                 //,socket
             ],
             [
                 'experience_id' => 4, 
-                'skill_id' => 7, //,Mongod
+                'skill_id' => 7, 
+                //,Mongod
             ],
             [
                 'experience_id' => 4, 
-                'skill_id' => 37, 
+                'skill_id' => 37,
+                 
             ],
             [
                 'experience_id' => 4, 
-                'skill_id' => 34, 
+                'skill_id' => 34,
+                 
             ],
             [
                 'experience_id' => 5, 
-                'skill_id' => 19, 
+                'skill_id' => 19,
+                 
             ],
             [
                 'experience_id' => 5, 
-                'skill_id' => 38, 
+                'skill_id' => 38,
+                 
             ],
             [
                 'experience_id' => 5, 
                 'skill_id' => 8, 
+                
             ],
             [
                 'experience_id' => 5, 
-                'skill_id' => 31, 
+                'skill_id' => 31,
+                 
             ],
             [
                 'experience_id' => 5, 
-                'skill_id' => 32, 
+                'skill_id' => 32,
+                 
             ],
             [
                 'experience_id' => 5, 
-                'skill_id' => 15, 
+                'skill_id' => 15,
+                 
             ],
             [
                 'experience_id' => 6, 
-                'skill_id' => 13, // Angular 13
+                'skill_id' => 13,
+                 // Angular 13
             ],
             
             [
                 'experience_id' => 6, 
-                'skill_id' => 17, //figma
+                'skill_id' => 17,
+                 //figma
             ],
             [
                 'experience_id' => 6, 
-                'skill_id' => 14, //css flex
+                'skill_id' => 14,
+                 //css flex
             ],
             [
                 'experience_id' => 6, 
-                'skill_id' => 15, //bootstrap
+                'skill_id' => 15,
+                 //bootstrap
             ],
             [
                 'experience_id' => 6, 
-                'skill_id' => 5, //node.js
+                'skill_id' => 5, 
+                //node.js
             ],
             [
                 'experience_id' => 6, 
-                'skill_id' => 6, //express
+                'skill_id' => 6, 
+                //express
             ],
             [
                 'experience_id' => 6, 
-                'skill_id' => 7, //MongoDB
+                'skill_id' => 7, 
+                //MongoDB
             ],
             [
                 'experience_id' => 6, 
-                'skill_id' => 16, //Web3.js
+                'skill_id' => 16,
+                 //Web3.js
             ],
             [
                 'experience_id' => 6, 
-                'skill_id' => 68, // Ngrx
+                'skill_id' => 68,
+                 // Ngrx
             ],
             [
                 'experience_id' => 6, 
-                'skill_id' => 12, //GraphQL
+                'skill_id' => 12,
+                 //GraphQL
             ],
             [
                 'experience_id' => 7, 
-                'skill_id' => 1, //java
+                'skill_id' => 1, 
+                //java
             ],
             [
                 'experience_id' => 7, 
-                'skill_id' => 2, //J2EE
+                'skill_id' => 2, 
+                //J2EE
             ],
             [
                 'experience_id' => 7, 
-                'skill_id' => 3,// Spring MVc 
+                'skill_id' => 3,
+                // Spring MVc 
             ],
             [
                 'experience_id' => 7, 
-                'skill_id' => 4, //Hibernate
+                'skill_id' => 4, 
+                //Hibernate
             ],
             [
                 'experience_id' => 7, 
-                'skill_id' => 69, // Maven
+                'skill_id' => 69,
+                 // Maven
             ],
             [
                 'experience_id' => 7, 
-                'skill_id' => 8, //mysql
+                'skill_id' => 8, 
+                //mysql
             ],
             [
                 'experience_id' => 9, 
-                'skill_id' => 65, //angular 
+                'skill_id' => 65,
+                 //angular 
             ],
             [
                 'experience_id' => 9, 
-                'skill_id' => 55,// TypeScript 
+                'skill_id' => 55,
+                // TypeScript 
             ],
             [
                 'experience_id' => 9, 
-                'skill_id' => 50, // Django 
+                'skill_id' => 50,
+                 // Django 
             ],
             [
                 'experience_id' => 9, 
-                'skill_id' => 51, // Python
+                'skill_id' => 51,
+                 // Python
             ],
             [
                 'experience_id' => 9, 
-                'skill_id' => 70, // Postgress
+                'skill_id' => 70,
+                 // Postgress
             ],
             [
                 'experience_id' => 9, 
-                'skill_id' => 56, // Gitlab
+                'skill_id' => 56,
+                 // Gitlab
             ],
             [
                 'experience_id' => 10, 
-                'skill_id' => 51, // Python 
+                'skill_id' => 51,
+                 // Python 
             ],
             [
                 'experience_id' => 10, 
-                'skill_id' => 50, // Django
+                'skill_id' => 50,
+                 // Django
             ],
             [
                 'experience_id' => 10, 
-                'skill_id' => 37, //rest api
+                'skill_id' => 37,
+                 //rest api
             ],
             [
                 'experience_id' => 10, 
-                'skill_id' => 65, //angular 
+                'skill_id' => 65,
+                 //angular 
             ],
             [
                 'experience_id' => 10, 
-                'skill_id' => 55,// TypeScript 
+                'skill_id' => 55,
+                 // TypeScript 
             ],
         ]);
        

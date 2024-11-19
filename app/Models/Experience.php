@@ -14,15 +14,15 @@ class Experience extends Model
         'startdate',
         'enddate',
         'description',
-        'cv_id',
+        'dev_id',
         'is_current',
     ];
     public function skills()
     {
         return $this->belongsToMany(Skill::class, 'experience_skill');
     }
-    public function cv()
+    public function dev()
     {
-        return $this->belongsTo(Cv::class);
+        return $this->belongsTo(Dev::class);
     }
 }

@@ -81,6 +81,10 @@ form .btn-primary{
 .small-id {
     width: 50px; 
 }
+/* Réduire la hauteur de l'éditeur Quill */
+.quill-editor-container {
+    height: 200px; /* Ajustez cette valeur selon vos besoins */
+}
 
 
 /* inspired form gumroad website */
